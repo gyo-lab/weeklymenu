@@ -97,14 +97,19 @@ def upload_to_github(file_path, repo_name="gyo-lab/weeklymenu", branch="main"):
         
     file_name = os.path.basename(file_path)
     try:
-        # 기존 파일 업데이트
+        # 기존 파일 확인
         existing_file = repo.get_contents(file_name, ref=branch)
+        print(f"기존 파일 발견: {existing_file.path}, 파일 업데이트 중...")
+        # 기존 파일 업데이트
         repo.update_file(existing_file.path, "Update weekly menu", content, existing_file.sha, branch=branch)
-        print(f"GitHub에 {file_name} 업데이트 완료.")
+        print(f"파일 업데이트 완료: {file_name}")
+    except github.GithubException.UnknownObjectException:
+        print("기존 파일이 없습니다. 새로 생성 중...")
+        # 파일이 없는 경우 새로 생성
+        repo.create_file(ile_name, "Add weekly menu", content, branch=branch)
+        print(f"새 파일 생성 완료: {file_name}")
     except Exception as e:
-        # 새 파일 생성
-        repo.create_file(file_name, "Add weekly menu", content, branch=branch)
-        print(f"GitHub에 {file_name} 업로드 완료.")
+        print(f"파일 업로드 중 오류 발생: {e}")
 
 
 def main():
