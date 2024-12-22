@@ -89,22 +89,22 @@ def upload_to_github(file_path, repo_name="gyo-lab/weeklymenu", branch="main"):
     if not token:
         raise ValueError("GITHUB_TOKEN 환경 변수가 설정되지 않았습니다.")
 
-        g = Github(token)
-        repo = g.get_repo(repo_name)
+    g = Github(token)
+    repo = g.get_repo(repo_name)
 
-        with open(file_path, "rb") as file:
-            content = file.read()
+    with open(file_path, "rb") as file:
+        content = file.read()
         
-        file_name = os.path.basename(file_path)
-        try:
-            # 기존 파일 업데이트
-            existing_file = repo.get_content(file_name, ref=branch)
-            repo.update_file(existing_file.path, "Update weekly menu", content, existing_file.sha, branch=branch)
-            print(f"GitHub에 {file_name} 업데이트 완료.")
-        except Exception as e:
-            # 새 파일 생성
-            repo.create_file(file_name, "Add weekly menu", content, branch=branch)
-            print(f"GitHub에 {file_name} 업로드 완료.")
+    file_name = os.path.basename(file_path)
+    try:
+        # 기존 파일 업데이트
+        existing_file = repo.get_content(file_name, ref=branch)
+        repo.update_file(existing_file.path, "Update weekly menu", content, existing_file.sha, branch=branch)
+        print(f"GitHub에 {file_name} 업데이트 완료.")
+    except Exception as e:
+        # 새 파일 생성
+        repo.create_file(file_name, "Add weekly menu", content, branch=branch)
+        print(f"GitHub에 {file_name} 업로드 완료.")
 
 
 def main():
