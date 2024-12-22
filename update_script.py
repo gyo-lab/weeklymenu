@@ -5,6 +5,7 @@ from pdf2image import convert_from_path
 from datetime import datetime, timedelta
 import re
 from github import Github
+from github.GithubException import UnknownObjectException
 
 # 설정
 BASE_URL = "https://assembly.go.kr/portal/bbs/B0000054/list.do?pageIndex=1&menuNo=600100&sdate=&edate=&searchDtGbn=c0&pageUnit=10&pageIndex=1&cl1Cd=AN01"
@@ -103,7 +104,7 @@ def upload_to_github(file_path, repo_name="gyo-lab/weeklymenu", branch="main"):
         # 기존 파일 업데이트
         repo.update_file(existing_file.path, "Update weekly menu", content, existing_file.sha, branch=branch)
         print(f"파일 업데이트 완료: {file_name}")
-    except github.GithubException.UnknownObjectException:
+    except UnknownObjectException:
         print("기존 파일이 없습니다. 새로 생성 중...")
         # 파일이 없는 경우 새로 생성
         repo.create_file(ile_name, "Add weekly menu", content, branch=branch)
