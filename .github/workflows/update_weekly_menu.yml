@@ -2,7 +2,7 @@ name: Update Weekly Menu
 
 on:
   schedule:
-    - cron: '20 13 * * 0'   # 매주 일요일 오후 10시 20분 (UTC 기준 13시 20분)
+    - cron: '0 14 * * 0'   # 매주 일요일 오후 11시 (UTC 기준 14시)
   workflow_dispatch:   # 수동 실행
 
 jobs:
