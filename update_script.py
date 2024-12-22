@@ -114,7 +114,7 @@ def main():
         # print(f"최신 PDF URL: {pdf_url}")
         download_pdf(pdf_url)
         convert_pdf_to_jpg()
-        upload_to_github(file_path, repo_name, branch)
+        upload_to_github(JPG_SAVE_PATH)
         
     else:
         print("최신 게시물을 찾을 수 없습니다.")
