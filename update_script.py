@@ -9,8 +9,8 @@ from github.GithubException import UnknownObjectException
 
 # 설정
 BASE_URL = "https://assembly.go.kr/portal/bbs/B0000054/list.do?pageIndex=1&menuNo=600100&sdate=&edate=&searchDtGbn=c0&pageUnit=10&pageIndex=1&cl1Cd=AN01"
-PDF_SAVE_PATH = "weekly_menu.pdf"
-JPG_SAVE_PATH = "weekly_menu.jpg"
+PDF_SAVE_PATH = "weekly-menu.pdf"
+JPG_SAVE_PATH = "weekly-menu.jpg"
 
 def find_latest_pdf_url():
     headers = {
