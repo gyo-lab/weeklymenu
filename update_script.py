@@ -98,7 +98,7 @@ def upload_to_github(file_path, repo_name="gyo-lab/weeklymenu", branch="main"):
     file_name = os.path.basename(file_path)
     try:
         # 기존 파일 업데이트
-        existing_file = repo.get_content(file_name, ref=branch)
+        existing_file = repo.get_contents(file_name, ref=branch)
         repo.update_file(existing_file.path, "Update weekly menu", content, existing_file.sha, branch=branch)
         print(f"GitHub에 {file_name} 업데이트 완료.")
     except Exception as e:
