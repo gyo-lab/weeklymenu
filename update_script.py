@@ -21,7 +21,7 @@ def find_latest_pdf_url():
 
     # 날짜 계산: 수집일 기준 3일 전부터 당일까지
     today = datetime.now()
-    three_days_ago = today - timedelta(days=3)
+    three_days_ago = today - timedelta(days=7)
 
     # 게시물 리스트 파싱 (제목, 작성일, 다운로드 컬럼 추출)
     div_container = soup.find("div", class_="board01 pr td_center board-added")
