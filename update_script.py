@@ -21,7 +21,7 @@ def find_latest_pdf_url():
 
     # 날짜 계산: 수집일 기준 3일 전부터 당일까지
     today = datetime.now()
-    three_days_ago = today - timedelta(days=8)
+    three_days_ago = today - timedelta(days=3)
     print(f"오늘: {today}, 3일 전: {three_days_ago}")
 
     # 게시물 리스트 파싱 (제목, 작성일, 다운로드 컬럼 추출)
