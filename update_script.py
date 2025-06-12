@@ -21,7 +21,8 @@ def find_latest_pdf_url():
 
     # 날짜 계산: 수집일 기준 3일 전부터 당일까지
     today = datetime.now()
-    three_days_ago = today - timedelta(days=7)
+    three_days_ago = today - timedelta(days=8)
+    print(f"오늘: {today}, 3일 전: {three_days_ago}")
 
     # 게시물 리스트 파싱 (제목, 작성일, 다운로드 컬럼 추출)
     div_container = soup.find("div", class_="board01 pr td_center board-added")
@@ -35,17 +36,18 @@ def find_latest_pdf_url():
             date_text = columns[4].text.strip()   # 작성일 컬럼
             download_column = columns[6]  # 다운로드 컬럼
 
-            # print(f"Title: {title}, Date: {date_text}, Download Tag: {download_link_tag}")
+            print(f"Title: {title}, Date: {date_text}, Download Tag: {download_link_tag}")
 
             # 날짜 확인
             try:
                 post_date = datetime.strptime(date_text, "%Y-%m-%d")
+                print(f"게시물 날짜 파싱 성공: {post_date}")
                 if three_days_ago <= post_date <= today and "주간식단표" in title:
                     # onclick 속성 찾기
                     link = download_column.find("a", onclick=True)
                     if link:
                         onclick_content = link["onclick"]
-                        # print(f"onclick content: {onclick_content}")
+                        print(f"onclick content: {onclick_content}")
 
                         # gfn_atchFileDownload 함수 파싱
                         match = re.search(r"gfn_atchFileDownload\('([^']*)', '([^']*)', '([^']*)', '([^']*)'\)", onclick_content)
@@ -55,7 +57,7 @@ def find_latest_pdf_url():
                             # URL 구성
                             base_url = "https://assembly.go.kr"
                             pdf_url = f"{base_url}/portal/cmmn/file/fileDown.do?menuNo={menu_no}&atchFileId={file_id}&fileSn={file_sn}&historyBackUrl=https%3A%2F%2Fassembly.go.kr%2Fportal%2Fbbs%2FB0000054%2Flist.do%3FpageIndex%3D1%26menuNo%3D600100%26sdate%3D%26edate%3D%26searchDtGbn%3Dc0%26pageUnit%3D10%26pageIndex%3D1%26cl1Cd%3DAN01"
-                            # print(f"PDF URL: {pdf_url}")
+                            print(f"PDF URL: {pdf_url}")
                             return pdf_url
                     
             except ValueError:
