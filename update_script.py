@@ -21,8 +21,8 @@ def find_latest_pdf_url():
 
     # 날짜 계산: 수집일 기준 3일 전부터 당일까지
     today = datetime.now()
-    three_days_ago = today - timedelta(days=3)
-    print(f"오늘: {today}, 3일 전: {three_days_ago}")
+    four_days_ago = today - timedelta(days=4)
+    print(f"오늘: {today}, 4일 전: {four_days_ago}")
 
     # 게시물 리스트 파싱 (제목, 작성일, 다운로드 컬럼 추출)
     div_container = soup.find("div", class_="board01 pr td_center board-added")
@@ -40,7 +40,7 @@ def find_latest_pdf_url():
             try:
                 post_date = datetime.strptime(date_text, "%Y-%m-%d")
                 print(f"게시물 날짜 파싱 성공: {post_date}")
-                if three_days_ago <= post_date <= today and "주간식단표" in title:
+                if four_days_ago <= post_date <= today and "주간식단표" in title:
                     # onclick 속성 찾기
                     link = download_column.find("a", onclick=True)
                     print(f"Title: {title}, Date: {date_text}, Download Link Tag: {link}")
@@ -130,4 +130,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
