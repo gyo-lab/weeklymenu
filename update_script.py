@@ -36,8 +36,6 @@ def find_latest_pdf_url():
             date_text = columns[4].text.strip()   # 작성일 컬럼
             download_column = columns[6]  # 다운로드 컬럼
 
-            print(f"Title: {title}, Date: {date_text}, Download Tag: {download_link_tag}")
-
             # 날짜 확인
             try:
                 post_date = datetime.strptime(date_text, "%Y-%m-%d")
@@ -45,6 +43,8 @@ def find_latest_pdf_url():
                 if three_days_ago <= post_date <= today and "주간식단표" in title:
                     # onclick 속성 찾기
                     link = download_column.find("a", onclick=True)
+                    print(f"Title: {title}, Date: {date_text}, Download Link Tag: {link}")
+                    
                     if link:
                         onclick_content = link["onclick"]
                         print(f"onclick content: {onclick_content}")
